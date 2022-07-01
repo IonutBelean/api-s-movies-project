@@ -1,0 +1,12 @@
+.pagination a {
+  color: black;
+}
+
+.pagination a:hover {
+  color: black;
+}
+
+#paginationActive {
+  background-color: black;
+  border: 1px solid black;
+}

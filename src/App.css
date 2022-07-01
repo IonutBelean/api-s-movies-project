@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: inherit !important;
+}
