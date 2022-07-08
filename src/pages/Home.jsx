@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <Layout>
-      <h1 className="my-4 fw-bold">Welcome to my Page</h1>
+      <h1 className="my-4 fw-bold text-center">Welcome to my Page</h1>
       <Container className="my-4 d-flex justify-content-center align-items-center">
         <Row className="gx-5">
           <Col lg={4} md={6} xs={12}>

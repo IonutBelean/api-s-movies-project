@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div>
       {" "}
-      <Navbar className={style.header}>
+      <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
