@@ -7,7 +7,7 @@ const MoviesCard = (props) => {
   return (
     <Card className="h-100 d-flex flex-column align-items-center justify-content-between">
       <Card.Img
-        className={style.MoviesCard}
+        className={style.img}
         variant="top"
         src={`https://image.tmdb.org/t/p/w500${image}`}
       />

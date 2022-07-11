@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MoviesPopularity from "./pages/MoviesPopularity";
 import MoviesTopRated from "./pages/MoviesTopRated";
-import MoviesHorror from "./pages/MoviesHorror";
+import MoviesGenres from "./pages/MoviesGenres";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/MoviesPopularity" element={<MoviesPopularity />} />
         <Route path="/MoviesTopRated" element={<MoviesTopRated />} />
-        <Route path="/MoviesHorror" element={<MoviesHorror />} />
+        <Route path="/MoviesGenres/:genres" element={<MoviesGenres />} />
       </Routes>
     </div>
   );

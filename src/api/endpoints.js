@@ -8,6 +8,6 @@ export const getMoviesTopRatedEndpoint = (page = 1) => {
   return `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
 };
 
-export const getMoviesHorrorEndpoint = (page = 1) => {
-  return `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=27&page=${page}`;
+export const getMoviesGenresEndpoint = (genres, page = 1) => {
+  return `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genres}&page=${page}`;
 };

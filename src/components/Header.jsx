@@ -4,7 +4,7 @@ import style from "./Header.module.css";
 
 const Header = () => {
   return (
-    <div>
+    <div className={style.nav}>
       {" "}
       <Navbar bg="dark" variant="dark">
         <Container>
@@ -19,9 +19,6 @@ const Header = () => {
             Movies
           </Navbar.Brand>
           <Nav>
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
             <Nav.Link as={Link} to="/MoviesPopularity">
               Popular
             </Nav.Link>
