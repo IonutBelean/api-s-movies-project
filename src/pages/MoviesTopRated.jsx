@@ -23,6 +23,7 @@ const MoviesTopRated = () => {
 
   return (
     <Layout>
+      <h1 className="text-center my-4">Top rated movies</h1>
       <MoviesCardList data={adaptedMoviesList} />
       <Pagination currentPage={currentPage} baseUrl="/MoviesTopRated/" />
     </Layout>

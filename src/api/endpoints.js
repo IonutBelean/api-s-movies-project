@@ -11,3 +11,7 @@ export const getMoviesTopRatedEndpoint = (page = 1) => {
 export const getMoviesGenresEndpoint = (genres, page = 1) => {
   return `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genres}&page=${page}`;
 };
+
+export const getMoviesDetailsEndpoint = (movieId) => {
+  return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
+};

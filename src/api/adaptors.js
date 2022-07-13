@@ -17,3 +17,19 @@ export const getMoviesList = (apiResponse) => {
 
   return adaptedMoviesList;
 };
+export const getMoviesDetails = (apiResponse) => {
+  if (!apiResponse || !apiResponse) {
+    return {};
+  }
+
+  const rawMoviesList = apiResponse;
+
+  const adaptedMoviesDetails = rawMoviesList.map((movie) => {
+    return {
+      id: movie.id,
+      title: movie.original_title,
+    };
+  });
+
+  return adaptedMoviesDetails;
+};

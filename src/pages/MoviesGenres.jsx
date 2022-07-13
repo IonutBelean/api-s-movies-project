@@ -19,10 +19,55 @@ const MoviesGenres = () => {
   const data = useFetch(moviesGenresEndpoint);
   const adaptedGenresList = getMoviesList(data);
 
+  let title;
+
+  switch (genres) {
+    case "27": {
+      title = "Horror";
+      break;
+    }
+    case "28": {
+      title = "Action";
+      break;
+    }
+    case "35": {
+      title = "Comedy";
+      break;
+    }
+    case "12": {
+      title = "Adventure";
+      break;
+    }
+    case "16": {
+      title = "Animation";
+      break;
+    }
+    case "10752": {
+      title = "War";
+      break;
+    }
+    case "18": {
+      title = "Drama";
+      break;
+    }
+    case "878": {
+      title = "Science Fiction";
+      break;
+    }
+    case "37": {
+      title = "Western";
+      break;
+    }
+    default:
+      title = "";
+      break;
+  }
+
   return (
     <div>
       <Layout>
         <Container>
+          <h1 className="text-center my-4">{title}</h1>
           <MoviesCardList data={adaptedGenresList} />
           <Pagination
             currentPage={currentPage}

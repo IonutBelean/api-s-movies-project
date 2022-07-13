@@ -26,6 +26,7 @@ const MoviesPopularity = () => {
     <div>
       <Layout>
         <Container>
+          <h1 className="text-center my-4">Most popular movies</h1>
           <MoviesCardList data={adaptedMoviesList} />
           <Pagination currentPage={currentPage} baseUrl="/MoviesPopularity/" />
         </Container>

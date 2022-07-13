@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import MoviesPopularity from "./pages/MoviesPopularity";
 import MoviesTopRated from "./pages/MoviesTopRated";
 import MoviesGenres from "./pages/MoviesGenres";
+import MoviesDetails from "./pages/MoviesDetails";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/MoviesPopularity" element={<MoviesPopularity />} />
         <Route path="/MoviesTopRated" element={<MoviesTopRated />} />
         <Route path="/MoviesGenres/:genres" element={<MoviesGenres />} />
+        <Route path="/MoviesDetails/:movieId" element={<MoviesDetails />} />
       </Routes>
     </div>
   );
