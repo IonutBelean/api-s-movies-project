@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import style from "./Header.module.css";
 
 const Header = () => {
+  const handleHomeClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className={style.nav}>
       {" "}
@@ -15,6 +21,7 @@ const Header = () => {
               width="40"
               height="40"
               className="d-inline-block align-top me-3"
+              onClick={handleHomeClick}
             />
             Movies
           </Navbar.Brand>

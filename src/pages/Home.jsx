@@ -70,7 +70,7 @@ const Home = () => {
     <Layout>
       <h1 className="my-4 fw-bold text-center">Welcome to my Page</h1>
       <Container
-        className={`${style.home} my-4 d-flex justify-content-center align-items-center`}
+        className={`${style.home}h-100 my-4 d-flex justify-content-center align-items-center`}
       >
         <Row className="g-4">
           {moviesGenres.map((movieItem) => (

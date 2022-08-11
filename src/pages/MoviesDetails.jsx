@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Container, Row, Col } from "react-bootstrap";
 import { useEffect } from "react";
+import style from "./MoviesDetalis.module.css";
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
@@ -20,7 +21,7 @@ const MoviesDetails = () => {
 
   return (
     <Layout>
-      <Container className={` my-3`}>
+      <Container className={`${style.details} my-3`}>
         <Row className="d-flex justify-content-center ">
           <Col xs={12} lg={8}>
             <h1 className="mb-5 pt-5 text-center">{title}</h1>
