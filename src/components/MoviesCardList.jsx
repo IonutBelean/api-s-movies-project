@@ -8,7 +8,7 @@ const MoviesCardList = (props) => {
     <Container>
       <Row>
         {data.map((movie) => (
-          <Col lg={3} md={4} xs={12} className="mb-4" key={movie.id}>
+          <Col lg={3} md={4} className="mb-4" key={movie.id}>
             <MoviesCard
               id={movie.id}
               title={movie.title}

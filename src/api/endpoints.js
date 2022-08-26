@@ -15,3 +15,11 @@ export const getMoviesGenresEndpoint = (genres, page = 1) => {
 export const getMoviesDetailsEndpoint = (movieId) => {
   return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
 };
+
+export const getMoviesSearchendpoint = () => {
+  return `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`;
+};
+
+export const getMoviesLatestEndpoint = () => {
+  return `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`;
+};
