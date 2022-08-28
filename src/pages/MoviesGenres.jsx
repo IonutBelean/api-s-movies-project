@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { Container } from "react-bootstrap";
 import Pagination from "../components/Pagination";
 import { useLocation, useParams } from "react-router-dom";
+import MoviesGenresCSS from "./MoviesGenres.module.css";
 
 const MoviesGenres = () => {
   const { genres } = useParams();
@@ -67,7 +68,9 @@ const MoviesGenres = () => {
     <div>
       <Layout>
         <Container>
-          <h1 className="text-center my-4">{title}</h1>
+          <h1 className={`${MoviesGenresCSS.genres} text-center my-4 genres`}>
+            {title}
+          </h1>
           <MoviesCardList data={adaptedGenresList} />
           <Pagination
             currentPage={currentPage}

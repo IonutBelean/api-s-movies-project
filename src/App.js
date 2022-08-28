@@ -8,7 +8,7 @@ import MoviesDetails from "./pages/MoviesDetails";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/MoviesPopularity" element={<MoviesPopularity />} />

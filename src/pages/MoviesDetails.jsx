@@ -21,7 +21,7 @@ const MoviesDetails = () => {
 
   return (
     <Layout>
-      <Container className={`${style.details} my-3`}>
+      <Container className={`${style.details}`}>
         <Row className="d-flex justify-content-center ">
           <Col xs={12} lg={8}>
             <h1 className="mb-5 pt-5 text-center">{title}</h1>

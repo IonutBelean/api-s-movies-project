@@ -1,7 +1,7 @@
 import { Container, Card, Row, Col } from "react-bootstrap";
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
-import style from "./Home.module.css";
+import HomeCSS from "./Home.module.css";
 
 const Home = () => {
   const moviesGenres = [
@@ -68,18 +68,26 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1 className="my-4 fw-bold text-center">Welcome to my Page</h1>
-      <Container
-        className={`${style.home}h-100 my-4 d-flex justify-content-center align-items-center`}
-      >
+      <h1 className={`${HomeCSS.welcome} text-center my-4 welcome`}>
+        Welcome to my Page
+      </h1>
+      <Container className={` h-100 d-flex flex-column p-4 text-center`}>
         <Row className="g-4">
           {moviesGenres.map((movieItem) => (
             <Col lg={4} md={6} xs={12} key={movieItem.id}>
-              <Card className="h-100 d-flex flex-column align-items-center justify-content-between">
+              <Card
+                className={`${HomeCSS.card} h-100 d-flex flex-column p-4 text-center`}
+              >
                 <Link to={`/MoviesGenres/${movieItem.id}`}>
-                  <Card.Img variant="top" src={movieItem.image} />
+                  <Card.Img
+                    variant="top"
+                    src={movieItem.image}
+                    className={`${HomeCSS.img}`}
+                  />
                   <Card.Body>
-                    <Card.Title>{movieItem.name}</Card.Title>
+                    <Card.Title className={`${HomeCSS.title} title`}>
+                      {movieItem.name}
+                    </Card.Title>
                     <Card.Text>
                       Here you can find {movieItem.name} movies
                     </Card.Text>

@@ -2,6 +2,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* background-color: #1f2833 !important; */
+  background-color: #c5c6c7 !important;
 }
 
 a {

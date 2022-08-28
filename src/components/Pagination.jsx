@@ -1,6 +1,6 @@
 import { Pagination as BootstrapPagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import style from "./Pagination.module.css";
+import PaginationCSS from "./Pagination.module.css";
 
 const Pagination = (props) => {
   const { currentPage, baseUrl } = props;
@@ -11,10 +11,14 @@ const Pagination = (props) => {
 
   return (
     <div className="d-flex justify-content-center">
-      <BootstrapPagination className={style.pagination}>
+      <BootstrapPagination>
         {pages.map((page) => (
           <BootstrapPagination.Item
-            id={page === Number(currentPage) ? style.paginationActive : null}
+            id={
+              page === Number(currentPage)
+                ? PaginationCSS.paginationActive
+                : PaginationCSS.paginationInactive
+            }
             key={page}
             active={page === Number(currentPage)}
             onClick={() => {

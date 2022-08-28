@@ -1,11 +1,12 @@
 import { Container } from "react-bootstrap";
+import FooterCSS from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark">
+    <footer className={`${FooterCSS.footer} footer`}>
       <Container>
         <p className="text-light text-center m-0 py-3">
-          Movies © 2022. All rights reserved.
+          Movieland © 2022. All rights reserved.
         </p>
       </Container>
     </footer>
