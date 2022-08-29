@@ -4,13 +4,13 @@
   box-shadow: 0 2px 20px #0b0c10;
   transition: transform 200ms ease-in;
   color: #c5c6c7;
+  position: relative;
 }
 .card:hover {
   transform: scale(1.02);
 }
-.card-img-top {
+.img {
   height: 360px;
-  width: 100%;
   object-fit: cover;
 }
 
@@ -32,3 +32,9 @@
   color: #c5c6c7;
   font-weight: 500;
 }
+/* .release {
+  margin-top: auto;
+}
+.rating {
+  margin-top: auto;
+} */

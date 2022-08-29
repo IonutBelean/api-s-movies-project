@@ -14,5 +14,15 @@
   color: white !important;
 }
 
-.nav a:hover {
+span {
+  background-color: #c5c6c7;
+  border-radius: 5px;
+}
+
+.category a {
+  color: #c5c6c7 !important;
+  margin-right: 10px;
+}
+.category a:hover {
+  color: white !important;
 }

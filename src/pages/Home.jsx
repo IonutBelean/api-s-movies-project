@@ -69,7 +69,7 @@ const Home = () => {
   return (
     <Layout>
       <h1 className={`${HomeCSS.welcome} text-center my-4 welcome`}>
-        Welcome to my Page
+        Best Movies
       </h1>
       <Container className={` h-100 d-flex flex-column p-4 text-center`}>
         <Row className="g-4">
@@ -85,7 +85,7 @@ const Home = () => {
                     className={`${HomeCSS.img}`}
                   />
                   <Card.Body>
-                    <Card.Title className={`${HomeCSS.title} title`}>
+                    <Card.Title className={`${HomeCSS.title} `}>
                       {movieItem.name}
                     </Card.Title>
                     <Card.Text>

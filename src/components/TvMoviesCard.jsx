@@ -2,14 +2,14 @@ import { Card } from "react-bootstrap";
 import MoviesCardCSS from "./MoviesCard.module.css";
 import { Link } from "react-router-dom";
 
-const MoviesCard = (props) => {
+const TvMoviesCard = (props) => {
   const { id, votes, title, image, release } = props;
 
   return (
     <Card
       className={`${MoviesCardCSS.card} h-100 d-flex flex-column p-4 text-center`}
     >
-      <Link to={`/MoviesDetails/${id}`}>
+      <Link to={`/TvMoviesDetails/${id}`}>
         <Card.Img
           className={MoviesCardCSS.img}
           variant="top"
@@ -35,4 +35,4 @@ const MoviesCard = (props) => {
   );
 };
 
-export default MoviesCard;
+export default TvMoviesCard;

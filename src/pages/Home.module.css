@@ -14,6 +14,9 @@
   transition: transform 200ms ease-in;
   color: #c5c6c7;
 }
+.card:hover {
+  transform: scale(1.02);
+}
 .title {
   padding: 1rem;
   font-weight: bolder !important;

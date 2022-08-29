@@ -16,10 +16,18 @@ export const getMoviesDetailsEndpoint = (movieId) => {
   return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
 };
 
-export const getMoviesSearchendpoint = () => {
-  return `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`;
+export const getMoviesVideosEndpoint = (movieId) => {
+  return `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
 };
 
-export const getMoviesLatestEndpoint = () => {
-  return `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`;
+export const getTvMoviesPopularityEndpoint = (page = 1) => {
+  return `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&page=${page}`;
+};
+
+export const getTvMoviesDetailsEndpoint = (movieId) => {
+  return `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&language=en-US`;
+};
+
+export const getTvMoviesTopRatedEndpoint = (page = 1) => {
+  return `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
 };

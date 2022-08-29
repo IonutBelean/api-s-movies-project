@@ -17,19 +17,23 @@ export const getMoviesList = (apiResponse) => {
 
   return adaptedMoviesList;
 };
-export const getMoviesDetails = (apiResponse) => {
-  if (!apiResponse || !apiResponse) {
-    return {};
+
+export const getTvMoviesList = (apiResponse) => {
+  if (!apiResponse || !apiResponse.results) {
+    return [];
   }
 
-  const rawMoviesList = apiResponse;
+  const rawTvMoviesList = apiResponse.results;
 
-  const adaptedMoviesDetails = rawMoviesList.map((movie) => {
+  const adaptedTvMoviesList = rawTvMoviesList.map((movie) => {
     return {
       id: movie.id,
-      title: movie.original_title,
+      title: movie.name,
+      image: movie.poster_path,
+      votes: movie.vote_average,
+      release: movie.first_air_date,
     };
   });
 
-  return adaptedMoviesDetails;
+  return adaptedTvMoviesList;
 };
