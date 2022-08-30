@@ -3,7 +3,6 @@ import { getMoviesDetailsEndpoint } from "../api/endpoints";
 import Layout from "../components/Layout";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Container, Row, Col } from "react-bootstrap";
-import { useEffect } from "react";
 import MoviesDetailsCSS from "./MoviesDetalis.module.css";
 
 const MoviesDetails = () => {
@@ -15,9 +14,9 @@ const MoviesDetails = () => {
 
   const { title, backdrop_path, overview, runtime, tagline } = data || {};
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   return (
     <Layout>
@@ -28,7 +27,7 @@ const MoviesDetails = () => {
             <p className={`${MoviesDetailsCSS.tagline}`}>{tagline}</p>
             <img
               src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-              alt={`${title} image`}
+              alt={`${title} `}
             />
             <p className={`${MoviesDetailsCSS.duration}`}>
               Duration: {runtime} minutes.

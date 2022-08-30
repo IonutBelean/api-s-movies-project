@@ -3,7 +3,6 @@ import { getTvMoviesDetailsEndpoint } from "../api/endpoints";
 import Layout from "../components/Layout";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Container, Row, Col } from "react-bootstrap";
-import { useEffect } from "react";
 import TvMoviesDetailsCSS from "./TvMoviesDetails.module.css";
 
 const TvMoviesDetails = () => {
@@ -16,9 +15,9 @@ const TvMoviesDetails = () => {
   const { original_name, backdrop_path, overview, status, tagline } =
     data || {};
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   return (
     <Layout>
@@ -29,7 +28,7 @@ const TvMoviesDetails = () => {
             <p className={`${TvMoviesDetailsCSS.tagline}`}>{tagline}</p>
             <img
               src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-              alt={`${original_name} image`}
+              alt={`${original_name}`}
             />
             <p className={`${TvMoviesDetailsCSS.status}`}>Status: {status}</p>
             <p className={`${TvMoviesDetailsCSS.overview}`}>{overview}</p>
