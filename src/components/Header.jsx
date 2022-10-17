@@ -13,15 +13,20 @@ const Header = () => {
     <Navbar className={`${HeaderCSS.navbar} navbar`} expand="lg">
       <Container className="d-flex justify-content-around">
         <div>
-          <Navbar.Brand as={Link} to="/" className={`${HeaderCSS.logomovies}`}>
+          <Navbar.Brand
+            as={Link}
+            to="/"
+            className={`${HeaderCSS.logomovies}`}
+            onClick={handleHomeClick}
+          >
             <img
               alt=""
               src="https://svgsilh.com/svg/147103-ffffff.svg"
               width="40"
               height="40"
               className={`d-inline-block align-top me-3`}
-              onClick={handleHomeClick}
             />
+
             <span className={`${HeaderCSS.logoname} d-inline-block`}>
               Movieland
             </span>

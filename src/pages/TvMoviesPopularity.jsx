@@ -1,10 +1,10 @@
 import Layout from "../components/Layout";
+import TvMoviesCardList from "../components/TvMoviesCardList";
+import Pagination from "../components/Pagination";
+import { getTvMoviesList } from "../api/adaptors";
 import { getTvMoviesPopularityEndpoint } from "../api/endpoints";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Container } from "react-bootstrap";
-import { getTvMoviesList } from "../api/adaptors";
-import TvMoviesCardList from "../components/TvMoviesCardList";
-import Pagination from "../components/Pagination";
 import { useLocation } from "react-router-dom";
 
 const TvMoviesPopularity = () => {

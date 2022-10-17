@@ -16,9 +16,9 @@ export const getMoviesDetailsEndpoint = (movieId) => {
   return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
 };
 
-export const getMoviesVideosEndpoint = (movieId) => {
-  return `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
-};
+// export const getMoviesVideosEndpoint = (movieId) => {
+//   return `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+// };
 
 export const getTvMoviesPopularityEndpoint = (page = 1) => {
   return `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&page=${page}`;
