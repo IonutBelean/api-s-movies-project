@@ -28,6 +28,7 @@ const MoviesDetails = () => {
             <img
               src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
               alt={`${title} `}
+              className={`${MoviesDetailsCSS.image}`}
             />
             <p className={`${MoviesDetailsCSS.duration}`}>
               Duration: {runtime} minutes.

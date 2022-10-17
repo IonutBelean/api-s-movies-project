@@ -8,10 +8,14 @@
 
 .logomovies {
   font-size: 30px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.nav a {
-  color: white !important;
+.logoname {
+  /* padding-bottom: 0 !important; */
+  background-color: transparent;
 }
 
 span {

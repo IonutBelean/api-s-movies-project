@@ -19,10 +19,12 @@ const Header = () => {
               src="https://svgsilh.com/svg/147103-ffffff.svg"
               width="40"
               height="40"
-              className={` d-inline-block align-top me-3`}
+              className={`d-inline-block align-top me-3`}
               onClick={handleHomeClick}
             />
-            Movieland
+            <span className={`${HeaderCSS.logoname} d-inline-block`}>
+              Movieland
+            </span>
           </Navbar.Brand>
         </div>
         <div>

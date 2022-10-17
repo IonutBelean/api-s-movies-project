@@ -5,7 +5,8 @@
 }
 
 .img {
-  height: 200px;
+  height: 10rem;
+  object-fit: cover;
 }
 .card {
   background: #0b0c10 !important;

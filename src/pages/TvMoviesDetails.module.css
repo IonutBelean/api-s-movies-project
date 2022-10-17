@@ -1,5 +1,6 @@
 .container {
   min-height: 100vh;
+  max-width: 1200px;
 }
 
 h1 {
@@ -15,9 +16,8 @@ h1 {
   color: #0b0c10;
 }
 
-img {
-  /* width: 100%;
-    height: auto; */
+.image {
+  width: 100%;
   border: 3px solid black;
 }
 

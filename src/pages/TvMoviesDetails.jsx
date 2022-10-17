@@ -28,7 +28,8 @@ const TvMoviesDetails = () => {
             <p className={`${TvMoviesDetailsCSS.tagline}`}>{tagline}</p>
             <img
               src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-              alt={`${original_name}`}
+              alt={`${original_name}.`}
+              className={`${TvMoviesDetailsCSS.image}`}
             />
             <p className={`${TvMoviesDetailsCSS.status}`}>Status: {status}</p>
             <p className={`${TvMoviesDetailsCSS.overview}`}>{overview}</p>
