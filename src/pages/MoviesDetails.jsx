@@ -14,10 +14,6 @@ const MoviesDetails = () => {
 
   const { title, backdrop_path, overview, runtime, tagline } = data || {};
 
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   return (
     <Layout>
       <Container className={`${MoviesDetailsCSS.container}`}>

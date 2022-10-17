@@ -8,6 +8,7 @@ const MoviesCard = (props) => {
   return (
     <Card
       className={`${MoviesCardCSS.card} h-100 d-flex flex-column p-4 text-center`}
+      onClick={() => window.scrollTo(0, 0)}
     >
       <Link to={`/MoviesDetails/${id}`}>
         <Card.Img
