@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import MoviesCard from "./MoviesCard";
+import { motion } from "framer-motion";
 
 const MoviesCardList = (props) => {
   const { data } = props;
