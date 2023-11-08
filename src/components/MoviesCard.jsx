@@ -23,23 +23,21 @@ const MoviesCard = (props) => {
       >
         <Link to={`/MoviesDetails/${id}`}>
           <Card.Img
-            className={MoviesCardCSS.img}
+            className={MoviesCardCSS.boximg}
             variant="top"
             src={`https://image.tmdb.org/t/p/w500${image}`}
           />
-          <Card.Body className="d-flex flex-column">
-            <Card.Title className={`${MoviesCardCSS.title} title`}>
+          <Card.Body className="d-flex flex-column p-0">
+            <Card.Title className={`${MoviesCardCSS.title} `}>
               {title}
             </Card.Title>
             <Card.Text>
               Rating:{" "}
-              <button className={`${MoviesCardCSS.grade} grade`}>
-                {votes}
-              </button>
+              <button className={`${MoviesCardCSS.grade} `}>{votes}</button>
             </Card.Text>
             <Card.Text>
               Release date:{" "}
-              <button className={`${MoviesCardCSS.releasedate} releasedate`}>
+              <button className={`${MoviesCardCSS.releasedate} `}>
                 {release}
               </button>
             </Card.Text>

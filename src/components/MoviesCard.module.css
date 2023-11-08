@@ -2,21 +2,31 @@
   background: #0b0c10 !important;
   border-radius: 10px;
   box-shadow: 0 2px 20px #0b0c10;
-  transition: transform 200ms ease-in;
+  transition: all 250ms ease-in;
   color: #c5c6c7;
   position: relative;
 }
 .card:hover {
   transform: scale(1.02);
 }
-.img {
-  width: auto;
+
+.boximg {
+  /* max-width: 100%; */
+  height: 360px;
+  /* background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; */
+  object-fit: cover;
 }
 
 .title {
-  padding: 1rem;
+  height: 70px;
+  width: 100%;
   font-weight: bolder !important;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .grade {
