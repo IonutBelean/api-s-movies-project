@@ -12,7 +12,7 @@
   background: #0b0c10 !important;
   border-radius: 10px;
   box-shadow: 0 2px 20px #0b0c10;
-  transition: transform 200ms ease-in;
+  transition: all 200ms ease-in;
   color: #c5c6c7;
 }
 .card:hover {

@@ -2,7 +2,6 @@ import { Container, Card, Row, Col } from "react-bootstrap";
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
 import HomeCSS from "./Home.module.css";
-import { motion } from "framer-motion";
 
 const Home = () => {
   const moviesGenres = [
@@ -57,56 +56,39 @@ const Home = () => {
     },
   ];
 
-  const homeAnimation = {
-    offscreen: { y: 100, opacity: 0 },
-    onscreen: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 120, duration: 0.5 },
-    },
-  };
-
   return (
     <Layout>
       <h1 className={`${HomeCSS.welcome} text-center my-4 welcome`}>
         Best Movies
       </h1>
-      <motion.div
-        initial={"offscreen"}
-        whileInView={"onscreen"}
-        viewport={{ once: false, amount: 0.3 }}
-        transition={{ staggerChildren: 0.2 }}
-      >
-        <Container className={` h-100 d-flex flex-column p-4 text-center`}>
-          <Row className="g-4">
-            {moviesGenres.map((movieItem) => (
-              <Col lg={4} md={6} xs={12} key={movieItem.id}>
-                <motion.div variants={homeAnimation}>
-                  <Card
-                    className={`${HomeCSS.card} h-100 d-flex flex-column p-4 text-center`}
-                  >
-                    <Link to={`/MoviesGenres/${movieItem.id}`}>
-                      <Card.Img
-                        variant="top"
-                        src={movieItem.image}
-                        className={`${HomeCSS.img}`}
-                      />
-                      <Card.Body>
-                        <Card.Title className={`${HomeCSS.title} `}>
-                          {movieItem.name}
-                        </Card.Title>
-                        <Card.Text>
-                          Here you can find {movieItem.name} movies
-                        </Card.Text>
-                      </Card.Body>
-                    </Link>
-                  </Card>
-                </motion.div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </motion.div>
+
+      <Container className={` h-100 d-flex flex-column p-4 text-center`}>
+        <Row className="g-4">
+          {moviesGenres.map((movieItem) => (
+            <Col lg={4} md={6} xs={12} key={movieItem.id}>
+              <Card
+                className={`${HomeCSS.card} h-100 d-flex flex-column p-4 text-center`}
+              >
+                <Link to={`/MoviesGenres/${movieItem.id}`}>
+                  <Card.Img
+                    variant="top"
+                    src={movieItem.image}
+                    className={`${HomeCSS.img}`}
+                  />
+                  <Card.Body>
+                    <Card.Title className={`${HomeCSS.title} `}>
+                      {movieItem.name}
+                    </Card.Title>
+                    <Card.Text>
+                      Here you can find {movieItem.name} movies
+                    </Card.Text>
+                  </Card.Body>
+                </Link>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </Layout>
   );
 };

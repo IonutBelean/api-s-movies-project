@@ -1,6 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
 import MoviesCard from "./MoviesCard";
-import { motion } from "framer-motion";
 
 const MoviesCardList = (props) => {
   const { data } = props;
@@ -9,7 +8,7 @@ const MoviesCardList = (props) => {
     <Container>
       <Row>
         {data.map((movie) => (
-          <Col lg={3} md={4} className="mb-4" key={movie.id}>
+          <Col lg={3} md={6} className="mb-4" key={movie.id}>
             <MoviesCard
               id={movie.id}
               title={movie.title}
