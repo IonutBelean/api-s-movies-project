@@ -1,5 +1,5 @@
 .welcome {
-  color: #0b0c10;
+  color: #000000;
   font-weight: bolder;
   font-size: 60px;
 }
@@ -9,11 +9,12 @@
   object-fit: cover;
 }
 .card {
-  background: #0b0c10 !important;
+  background: #28282a !important;
   border-radius: 10px;
-  box-shadow: 0 2px 20px #0b0c10;
+  box-shadow: 0 2px 20px #000000;
   transition: all 200ms ease-in;
   color: #c5c6c7;
+  font-weight: 600;
 }
 .card:hover {
   transform: scale(1.02);
@@ -21,5 +22,5 @@
 .title {
   padding: 1rem;
   font-weight: bolder !important;
-  color: white;
+  color: #ffffff;
 }

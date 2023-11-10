@@ -5,7 +5,7 @@
 
 h1 {
   font-weight: bolder !important;
-  color: #0b0c10;
+  color: #000000;
   font-size: 60px !important;
 }
 
@@ -13,25 +13,25 @@ h1 {
   font-size: 30px;
   font-style: italic;
   font-weight: 700;
-  color: #0b0c10;
+  color: #000000;
 }
 
 .image {
   width: 100%;
-  border: 3px solid black;
+  border: 3px solid #000000;
 }
 
 .status {
   margin-top: 20px !important;
   text-align: center;
   width: 200px;
-  color: white;
-  background-color: #0b0c10;
+  color: #ffffff;
+  background-color: #000000;
   border-radius: 5px;
 }
 
 .overview {
   font-weight: 500;
   font-size: 20px;
-  color: #0b0c10;
+  color: #000000;
 }

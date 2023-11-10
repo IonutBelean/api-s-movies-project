@@ -1,9 +1,11 @@
 #paginationActive {
-  background-color: #0b0c10;
-  border: 1px solid #0b0c10;
-  color: #c5c6c7;
+  background-color: #000000;
+  border: 2px solid #000000;
+  color: #c4c7bd;
+  font-weight: 600;
 }
 #paginationInactive {
-  background-color: #c5c6c7;
-  border: 1px solid #0b0c10;
+  background-color: #c4c7bd;
+  border: 2px solid #000000;
+  font-weight: 600;
 }

@@ -31,11 +31,11 @@ const MoviesCard = (props) => {
             <Card.Title className={`${MoviesCardCSS.title} `}>
               {title}
             </Card.Title>
-            <Card.Text>
-              Rating:{" "}
+            <Card.Text className={`${MoviesCardCSS.text} `}>
+              Rating:
               <button className={`${MoviesCardCSS.grade} `}>{votes}</button>
             </Card.Text>
-            <Card.Text>
+            <Card.Text className={`${MoviesCardCSS.text} `}>
               Release date:{" "}
               <button className={`${MoviesCardCSS.releasedate} `}>
                 {release}

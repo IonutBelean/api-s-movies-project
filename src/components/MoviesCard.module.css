@@ -1,9 +1,9 @@
 .card {
-  background: #0b0c10 !important;
+  background: #28282a !important;
   border-radius: 10px;
-  box-shadow: 0 2px 20px #0b0c10;
+  box-shadow: 0 0 23px #000000;
   transition: all 250ms ease-in;
-  color: #c5c6c7;
+  color: #c4c7bd;
   position: relative;
 }
 .card:hover {
@@ -15,11 +15,15 @@
   object-fit: cover;
 }
 
+.text {
+  font-weight: 700;
+}
+
 .title {
   height: 70px;
   width: 100%;
   font-weight: bolder !important;
-  color: white;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,14 +32,17 @@
 .grade {
   height: 30px !important;
   width: 40px !important;
-  background: yellow;
-  font-weight: 600;
+  background: #cc6900;
+  font-weight: 700;
   border-radius: 5px;
   border: none;
+  color: #000000;
+  margin-left: 6px;
+  font-size: large;
 }
 .releasedate {
-  background-color: #0b0c10;
-  color: #c5c6c7;
+  background: #28282a !important;
+  color: #c4c7bd;
   font-weight: 500;
   border: none;
 }

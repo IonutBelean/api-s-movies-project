@@ -10,7 +10,12 @@ const Header = () => {
     });
   };
   return (
-    <Navbar className={`${HeaderCSS.navbar}`} expand="lg">
+    <Navbar
+      className={`${HeaderCSS.navbar}`}
+      expand="lg"
+      collapseOnSelect
+      sticky="top"
+    >
       <Container className={`${HeaderCSS.container}`}>
         <Navbar.Brand
           as={Link}

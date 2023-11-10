@@ -63,7 +63,7 @@ const MoviesDetails = () => {
               whileInView={{
                 y: 0,
                 opacity: 1,
-                transition: { type: "spring", delay: 0.6 },
+                transition: { type: "spring", delay: 0.4 },
               }}
               viewport={{ once: false, amount: 0.2 }}
             >
@@ -75,7 +75,7 @@ const MoviesDetails = () => {
               whileInView={{
                 y: 0,
                 opacity: 1,
-                transition: { type: "spring", delay: 0.6 },
+                transition: { type: "spring", delay: 0.5 },
               }}
               viewport={{ once: false, amount: 0.2 }}
             >

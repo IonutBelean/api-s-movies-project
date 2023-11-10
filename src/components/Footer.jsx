@@ -5,7 +5,7 @@ const Footer = () => {
   const thisYear = new Date().getFullYear();
 
   return (
-    <footer className={`${FooterCSS.footer} footer`}>
+    <footer className={`${FooterCSS.footer}`}>
       <Container>
         <p className="text-light text-center m-0 py-3">
           Movieland © {thisYear}. All rights reserved.
