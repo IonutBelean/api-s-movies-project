@@ -22,7 +22,7 @@ const TvMoviesDetails = () => {
         <Row className="d-flex justify-content-center ">
           <Col xs={12} lg={8}>
             <motion.h1
-              className="mb-5 pt-5 text-center"
+              className="mb-4 pt-4 text-center"
               initial={{ x: 100, opacity: 0 }}
               whileInView={{
                 x: 0,

@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 const TvMoviesCard = (props) => {
   const { id, votes, title, image, release } = props;
 
+  const roundedVotes = votes.toFixed(1);
+
   return (
     <Card
       className={`${MoviesCardCSS.card} h-100 d-flex flex-column p-4 text-center`}
@@ -28,18 +30,18 @@ const TvMoviesCard = (props) => {
             src={`https://image.tmdb.org/t/p/w500${image}`}
           />
           <Card.Body className="d-flex flex-column">
-            <Card.Title className={`${MoviesCardCSS.title} title`}>
+            <Card.Title className={`${MoviesCardCSS.title}`}>
               {title}
             </Card.Title>
             <Card.Text>
               Rating:{" "}
-              <button className={`${MoviesCardCSS.grade} grade`}>
-                {votes}
+              <button className={`${MoviesCardCSS.grade}`}>
+                {roundedVotes}
               </button>
             </Card.Text>
             <Card.Text>
               Release date:{" "}
-              <button className={`${MoviesCardCSS.releasedate} releasedate`}>
+              <button className={`${MoviesCardCSS.releasedate}`}>
                 {release}
               </button>
             </Card.Text>

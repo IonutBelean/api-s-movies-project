@@ -58,11 +58,8 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1 className={`${HomeCSS.welcome} text-center my-4 welcome`}>
-        Best Movies
-      </h1>
-
       <Container className={` h-100 d-flex flex-column p-4 text-center`}>
+        <h1 className={`${HomeCSS.welcome} text-center`}>Best Movies</h1>
         <Row className="g-4">
           {moviesGenres.map((movieItem) => (
             <Col lg={4} md={6} xs={12} key={movieItem.id}>

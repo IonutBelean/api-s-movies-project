@@ -6,6 +6,10 @@ import { motion } from "framer-motion";
 const MoviesCard = (props) => {
   const { id, votes, title, image, release } = props;
 
+  const roundedVotes = votes.toFixed(1);
+
+  console.log(roundedVotes);
+
   return (
     <Card
       className={`${MoviesCardCSS.card} h-100 d-flex flex-column p-4 text-center`}
@@ -33,7 +37,9 @@ const MoviesCard = (props) => {
             </Card.Title>
             <Card.Text className={`${MoviesCardCSS.text} `}>
               Rating:
-              <button className={`${MoviesCardCSS.grade} `}>{votes}</button>
+              <button className={`${MoviesCardCSS.grade} `}>
+                {roundedVotes}
+              </button>
             </Card.Text>
             <Card.Text className={`${MoviesCardCSS.text} `}>
               Release date:{" "}
