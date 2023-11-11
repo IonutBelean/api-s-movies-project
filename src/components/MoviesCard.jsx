@@ -8,8 +8,6 @@ const MoviesCard = (props) => {
 
   const roundedVotes = votes.toFixed(1);
 
-  console.log(roundedVotes);
-
   return (
     <Card
       className={`${MoviesCardCSS.card} h-100 d-flex flex-column p-4 text-center`}
