@@ -6,7 +6,12 @@ import { motion } from "framer-motion";
 const MoviesCard = (props) => {
   const { id, votes, title, image, release } = props;
 
-  const roundedVotes = votes.toFixed(1);
+  const roundedVotes = votes ? votes.toFixed(1) : "N/A";
+  const releaseDate = release || "Unknown";
+
+  const imagePath = image
+    ? `https://image.tmdb.org/t/p/w500${image}`
+    : "/nophoto.png";
 
   return (
     <Card
@@ -25,29 +30,26 @@ const MoviesCard = (props) => {
       >
         <Link to={`/MoviesDetails/${id}`}>
           <Card.Img
-            className={MoviesCardCSS.boximg}
+            className={`${MoviesCardCSS.boximg} boximg`}
             variant="top"
-            src={`https://image.tmdb.org/t/p/w500${image}`}
+            alt="Movie Poster"
+            src={imagePath}
           />
-          <Card.Body className="d-flex flex-column p-0">
-            <Card.Title className={`${MoviesCardCSS.title} `}>
-              {title}
-            </Card.Title>
-            <Card.Text className={`${MoviesCardCSS.text} `}>
-              Rating:
-              <button className={`${MoviesCardCSS.grade} `}>
-                {roundedVotes}
-              </button>
-            </Card.Text>
-            <Card.Text className={`${MoviesCardCSS.text} `}>
-              Release date:{" "}
-              <button className={`${MoviesCardCSS.releasedate} `}>
-                {release}
-              </button>
-            </Card.Text>
-          </Card.Body>
         </Link>
       </motion.div>
+      <Card.Body className="d-flex flex-column p-0">
+        <Card.Title className={`${MoviesCardCSS.title}`}>{title}</Card.Title>
+        <Card.Text className={`${MoviesCardCSS.text}`}>
+          Rating:
+          <button className={`${MoviesCardCSS.grade}`}>{roundedVotes}</button>
+        </Card.Text>
+        <Card.Text className={`${MoviesCardCSS.text}`}>
+          Release date:{" "}
+          <button className={`${MoviesCardCSS.releasedate}`}>
+            {releaseDate}
+          </button>
+        </Card.Text>
+      </Card.Body>
     </Card>
   );
 };

@@ -41,7 +41,8 @@ const Home = () => {
     {
       id: 18,
       name: "Drama",
-      image: "https://i.ytimg.com/vi/ACjaDBctb1Q/maxresdefault.jpg",
+      image:
+        "https://www.thedigitalfix.com/wp-content/uploads/2021/09/best-drama-movies-forrest-Gump.jpg",
     },
     {
       id: 878,

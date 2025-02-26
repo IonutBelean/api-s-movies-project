@@ -1,29 +1,33 @@
 const API_KEY = "448c4b7fa8ff1e74ed9d6db8b4a958e8";
+const BASE_URL = "https://api.themoviedb.org/3";
+const DEFAULT_PARAMS = `api_key=${API_KEY}&language=en-US`;
 
-export const getPopularMoviesEndpoint = (page = 1) => {
-  return `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
-};
+const createEndpoint = (path, params = "") =>
+  `${BASE_URL}/${path}?${DEFAULT_PARAMS}${params}`;
 
-export const getMoviesTopRatedEndpoint = (page = 1) => {
-  return `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
-};
+export const getPopularMoviesEndpoint = (page = 1) =>
+  createEndpoint("movie/popular", `&page=${page}`);
 
-export const getMoviesGenresEndpoint = (genres, page = 1) => {
-  return `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genres}&page=${page}`;
-};
+export const getMoviesTopRatedEndpoint = (page = 1) =>
+  createEndpoint("movie/top_rated", `&page=${page}`);
 
-export const getMoviesDetailsEndpoint = (movieId) => {
-  return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
-};
+export const getMoviesGenresEndpoint = (genres, page = 1) =>
+  createEndpoint("discover/movie", `&with_genres=${genres}&page=${page}`);
 
-export const getTvMoviesPopularityEndpoint = (page = 1) => {
-  return `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&page=${page}`;
-};
+export const getMoviesDetailsEndpoint = (movieId) =>
+  createEndpoint(`movie/${movieId}`);
 
-export const getTvMoviesDetailsEndpoint = (movieId) => {
-  return `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&language=en-US`;
-};
+export const getTvMoviesPopularityEndpoint = (page = 1) =>
+  createEndpoint("tv/popular", `&page=${page}`);
 
-export const getTvMoviesTopRatedEndpoint = (page = 1) => {
-  return `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
+export const getTvMoviesDetailsEndpoint = (movieId) =>
+  createEndpoint(`tv/${movieId}`);
+
+export const getTvMoviesTopRatedEndpoint = (page = 1) =>
+  createEndpoint("tv/top_rated", `&page=${page}`);
+
+export const getSearchEndpoint = (query) => {
+  return `${BASE_URL}/search/movie?query=${encodeURIComponent(
+    query
+  )}&api_key=${API_KEY}`;
 };

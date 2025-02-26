@@ -1,9 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import MoviesCard from "./MoviesCard";
 
-const MoviesCardList = (props) => {
-  const { data } = props;
-
+const MoviesCardList = ({ data }) => {
   return (
     <Container>
       <Row>
@@ -12,9 +10,11 @@ const MoviesCardList = (props) => {
             <MoviesCard
               id={movie.id}
               title={movie.title}
-              image={movie.image}
-              votes={movie.votes}
-              release={movie.release}
+              image={movie.poster_path || movie.image}
+              votes={movie.vote_average ? movie.vote_average : movie.votes}
+              release={
+                movie.release_date || movie.first_air_date || movie.release
+              }
             />
           </Col>
         ))}

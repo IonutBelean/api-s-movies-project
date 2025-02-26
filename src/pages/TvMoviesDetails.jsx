@@ -45,19 +45,25 @@ const TvMoviesDetails = () => {
             >
               {tagline}
             </motion.p>
-            <motion.img
-              src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-              alt={`${original_name}.`}
-              className={`${TvMoviesDetailsCSS.image}`}
-              initial={{ scale: 0.5, opacity: 0 }}
-              whileInView={{
-                scale: 1,
-                opacity: 1,
-                transition: { type: "spring", stiffness: 120 },
-              }}
-              viewport={{ once: false, amount: 0.5 }}
-              transition={{ staggerChildren: 0.2 }}
-            />
+            {!data ? (
+              <p>Loading...</p>
+            ) : (
+              <motion.img
+                src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+                alt={original_name || "No image available"}
+                className={`${TvMoviesDetailsCSS.image}`}
+                onError={(e) => (e.target.src = "/nophoto.png")}
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{
+                  scale: 1,
+                  opacity: 1,
+                  transition: { type: "spring", stiffness: 120 },
+                }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ staggerChildren: 0.2 }}
+              />
+            )}
+
             <motion.p
               className={`${TvMoviesDetailsCSS.status}`}
               initial={{ y: 100, opacity: 0 }}

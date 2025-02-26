@@ -14,7 +14,7 @@
   border-radius: 10px;
   box-shadow: 0 2px 20px #000000;
   transition: all 200ms ease-in;
-  color: #c5c6c7;
+  color: #c5c6c7 !important;
   font-weight: 600;
 }
 .card:hover {
@@ -23,5 +23,5 @@
 .title {
   padding: 1rem;
   font-weight: bolder !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }

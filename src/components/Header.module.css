@@ -1,55 +1,104 @@
 .container {
   display: flex;
-  justify-content: space-around !important;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar {
   background-color: #000000;
   color: #ffffff;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .logomovies {
-  font-size: 2rem !important;
+  font-size: 2rem;
   display: flex;
-  justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .logoname {
-  background-color: transparent;
   color: #cc6900;
   font-weight: bolder;
+  margin-left: 8px;
 }
 
-span {
+.logoname span {
   border-radius: 5px;
   background-color: #c4c7bd;
 }
 
 .category a {
-  color: #c4c7bd !important;
+  color: #c4c7bd;
   margin-right: 10px;
   font-size: large;
   font-weight: bolder;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
 }
+
 .category a:hover {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .collapse {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
+}
+
+button[type="submit"]:hover {
+  background-color: #cc6900;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+
+.form_container {
+  display: flex;
+  justify-content: end !important;
+}
+
+.form {
+  display: flex;
+  width: 50%;
 }
 
 @media (max-width: 990px) {
   .collapse {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     backdrop-filter: blur(10px);
-    background-color: hsl(0, 0%, 0%, 0.7) !important;
-    transition: all 0.5s ease-in;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: all 0.5s ease-in-out;
     position: absolute;
     top: 70px;
+    left: 0;
+    padding: 1rem 0;
   }
+
+  .category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category a {
+    margin-bottom: 10px;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .collapse {
+    justify-content: center;
+  }
+}
+
+.show {
+  filter: invert(38%) sepia(16%) saturate(7019%) hue-rotate(21deg)
+    brightness(103%) contrast(105%);
 }

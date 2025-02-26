@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MoviesPopularity from "./pages/MoviesPopularity";
@@ -8,10 +7,13 @@ import MoviesDetails from "./pages/MoviesDetails";
 import TvMoviesDetails from "./pages/TvMoviesDetails";
 import TvMoviesPopularity from "./pages/TvMoviesPopularity";
 import TvMoviesTopRated from "./pages/TvMoviesTopRated";
+import SearchResults from "./pages/SearchResults";
+
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
   return (
-    <div className="App">
+    <SearchProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/MoviesPopularity" element={<MoviesPopularity />} />
@@ -21,8 +23,9 @@ function App() {
         <Route path="/TvMoviesPopularity" element={<TvMoviesPopularity />} />
         <Route path="/TvMoviesDetails/:movieId" element={<TvMoviesDetails />} />
         <Route path="/TvMoviesTopRated" element={<TvMoviesTopRated />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
-    </div>
+    </SearchProvider>
   );
 }
 

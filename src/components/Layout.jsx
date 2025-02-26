@@ -1,8 +1,7 @@
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = (props) => {
-  const { children } = props;
+const Layout = ({ children }) => {
   return (
     <div>
       <Header />
