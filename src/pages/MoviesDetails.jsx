@@ -18,26 +18,63 @@ const MoviesDetails = () => {
 
   useEffect(() => {
     const fetchDbpediaInfo = async () => {
+      if (!title) return;
       setLoadingDbpedia(true);
       try {
         const res = await axios.post("/.netlify/functions/dbpediaInfo", {
           title,
         });
-        setDbpediaInfo(res.data);
+        const info = res.data;
+
+        // Curățăm DBpedia de link-uri ciudate
+        const cleanInfo = { ...info };
+        ["director", "starring", "producer", "writer", "genre"].forEach(
+          (key) => {
+            if (cleanInfo[key]?.uri) {
+              cleanInfo[key] = { name: cleanInfo[key].name };
+            }
+          }
+        );
+        if (cleanInfo.language?.uri)
+          cleanInfo.language = cleanInfo.language.name;
+        if (cleanInfo.country?.uri) cleanInfo.country = cleanInfo.country.name;
+
+        setDbpediaInfo(cleanInfo);
       } catch (err) {
         console.error("DBpedia Error:", err);
+        setDbpediaInfo(null);
       } finally {
         setLoadingDbpedia(false);
       }
     };
 
-    if (title) fetchDbpediaInfo();
+    fetchDbpediaInfo();
   }, [title]);
 
-  const motionView = {
-    once: false,
-    amount: 0.5,
+  const renderPersons = (persons) => {
+    if (!persons) return "Unknown";
+    const arr = Array.isArray(persons) ? persons : [persons];
+    return arr.map((p, i) => (
+      <span key={i}>
+        {p.name}
+        {i < arr.length - 1 ? ", " : ""}
+      </span>
+    ));
   };
+
+  const formatRuntime = (runtime) => {
+    if (!runtime) return "N/A";
+    const num = parseFloat(runtime);
+    return num > 500 ? Math.round(num / 60) + " minutes" : num + " minutes";
+  };
+
+  const formatMoney = (value) => {
+    if (!value) return "N/A";
+    const num = parseFloat(value);
+    return "$" + num.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  };
+
+  const motionView = { once: false, amount: 0.5 };
 
   return (
     <Layout>
@@ -121,7 +158,6 @@ const MoviesDetails = () => {
                 viewport={{ once: false, amount: 0.2 }}
               >
                 <h3>Extra Information from DBpedia</h3>
-
                 {loadingDbpedia ? (
                   <div className="text-center my-3">
                     <Spinner animation="border" role="status" />
@@ -131,12 +167,32 @@ const MoviesDetails = () => {
                   <>
                     {dbpediaInfo.director && (
                       <p>
-                        <strong>Director:</strong> {dbpediaInfo.director}
+                        <strong>Director:</strong>{" "}
+                        {renderPersons(dbpediaInfo.director)}
                       </p>
                     )}
                     {dbpediaInfo.starring && (
                       <p>
-                        <strong>Main Actor:</strong> {dbpediaInfo.starring}
+                        <strong>Main Actor:</strong>{" "}
+                        {renderPersons(dbpediaInfo.starring)}
+                      </p>
+                    )}
+                    {dbpediaInfo.producer && (
+                      <p>
+                        <strong>Producer:</strong>{" "}
+                        {renderPersons(dbpediaInfo.producer)}
+                      </p>
+                    )}
+                    {dbpediaInfo.writer && (
+                      <p>
+                        <strong>Writer:</strong>{" "}
+                        {renderPersons(dbpediaInfo.writer)}
+                      </p>
+                    )}
+                    {dbpediaInfo.genre && (
+                      <p>
+                        <strong>Genre:</strong>{" "}
+                        {renderPersons(dbpediaInfo.genre)}
                       </p>
                     )}
                     {dbpediaInfo.releaseDate && (
@@ -144,26 +200,45 @@ const MoviesDetails = () => {
                         <strong>Release Date:</strong> {dbpediaInfo.releaseDate}
                       </p>
                     )}
+                    {dbpediaInfo.runtime && (
+                      <p>
+                        <strong>Runtime:</strong>{" "}
+                        {formatRuntime(dbpediaInfo.runtime)}
+                      </p>
+                    )}
+                    {dbpediaInfo.budget && (
+                      <p>
+                        <strong>Budget:</strong>{" "}
+                        {formatMoney(dbpediaInfo.budget)}
+                      </p>
+                    )}
+                    {dbpediaInfo.gross && (
+                      <p>
+                        <strong>Box Office:</strong>{" "}
+                        {formatMoney(dbpediaInfo.gross)}
+                      </p>
+                    )}
+                    {dbpediaInfo.language && (
+                      <p>
+                        <strong>Language:</strong> {dbpediaInfo.language}
+                      </p>
+                    )}
+                    {dbpediaInfo.country && (
+                      <p>
+                        <strong>Country:</strong> {dbpediaInfo.country}
+                      </p>
+                    )}
                     {dbpediaInfo.abstract && (
                       <p>
                         <strong>Abstract:</strong> {dbpediaInfo.abstract}
                       </p>
                     )}
-                    {dbpediaInfo.wikiPage && (
-                      <p>
-                        <a
-                          href={dbpediaInfo.wikiPage}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          More on Wikipedia
-                        </a>
-                      </p>
-                    )}
                     {!dbpediaInfo.abstract &&
                       !dbpediaInfo.director &&
                       !dbpediaInfo.starring &&
-                      !dbpediaInfo.releaseDate && (
+                      !dbpediaInfo.releaseDate &&
+                      !dbpediaInfo.budget &&
+                      !dbpediaInfo.gross && (
                         <p>
                           🔍 No additional information found on DBpedia for this
                           title.

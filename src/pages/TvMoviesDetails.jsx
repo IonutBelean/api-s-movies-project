@@ -20,23 +20,51 @@ const TvMoviesDetails = () => {
 
   useEffect(() => {
     const fetchDbpediaInfo = async () => {
+      if (!original_name) return;
       setLoadingDbpedia(true);
       try {
         const res = await axios.post("/.netlify/functions/dbpediaInfo", {
           title: original_name,
         });
-        setDbpediaInfo(res.data);
+        const info = res.data;
+
+        // Curățăm DBpedia de link-uri uriase / ciudate
+        const cleanInfo = { ...info };
+        ["director", "starring", "producer", "writer", "genre"].forEach(
+          (key) => {
+            if (cleanInfo[key]?.uri) {
+              cleanInfo[key] = { name: cleanInfo[key].name };
+            }
+          }
+        );
+        if (cleanInfo.language?.uri)
+          cleanInfo.language = cleanInfo.language.name;
+        if (cleanInfo.country?.uri) cleanInfo.country = cleanInfo.country.name;
+
+        setDbpediaInfo(cleanInfo);
       } catch (err) {
-        console.error("DBpedia error:", err);
+        console.error("DBpedia Error:", err);
+        setDbpediaInfo(null);
       } finally {
         setLoadingDbpedia(false);
       }
     };
 
-    if (original_name) {
-      fetchDbpediaInfo();
-    }
+    fetchDbpediaInfo();
   }, [original_name]);
+
+  const renderPersons = (persons) => {
+    if (!persons) return "N/A";
+    const arr = Array.isArray(persons) ? persons : [persons];
+    return arr.map((p, i) => (
+      <span key={i}>
+        {p.name}
+        {i < arr.length - 1 ? ", " : ""}
+      </span>
+    ));
+  };
+
+  const motionView = { once: false, amount: 0.5 };
 
   return (
     <Layout>
@@ -51,7 +79,7 @@ const TvMoviesDetails = () => {
                 opacity: 1,
                 transition: { type: "spring", delay: 0.3 },
               }}
-              viewport={{ once: false, amount: 0.5 }}
+              viewport={motionView}
             >
               {original_name || "No Title"}
             </motion.h1>
@@ -65,7 +93,7 @@ const TvMoviesDetails = () => {
                   opacity: 1,
                   transition: { type: "spring", delay: 0.6 },
                 }}
-                viewport={{ once: false, amount: 0.5 }}
+                viewport={motionView}
               >
                 {tagline}
               </motion.p>
@@ -83,7 +111,7 @@ const TvMoviesDetails = () => {
                   opacity: 1,
                   transition: { type: "spring", stiffness: 120 },
                 }}
-                viewport={{ once: false, amount: 0.5 }}
+                viewport={motionView}
               />
             )}
 
@@ -136,31 +164,68 @@ const TvMoviesDetails = () => {
                   </div>
                 ) : dbpediaInfo ? (
                   <>
-                    <p>
-                      <strong>Director:</strong> {dbpediaInfo.director || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Main Actor:</strong>{" "}
-                      {dbpediaInfo.starring || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Release Date:</strong>{" "}
-                      {dbpediaInfo.releaseDate || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Abstract:</strong> {dbpediaInfo.abstract || "N/A"}
-                    </p>
-                    {dbpediaInfo.wikiPage && (
+                    {dbpediaInfo.director && (
                       <p>
-                        <a
-                          href={dbpediaInfo.wikiPage}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          More on Wikipedia
-                        </a>
+                        <strong>Director:</strong>{" "}
+                        {renderPersons(dbpediaInfo.director)}
                       </p>
                     )}
+                    {dbpediaInfo.starring && (
+                      <p>
+                        <strong>Main Actor:</strong>{" "}
+                        {renderPersons(dbpediaInfo.starring)}
+                      </p>
+                    )}
+                    {dbpediaInfo.producer && (
+                      <p>
+                        <strong>Producer:</strong>{" "}
+                        {renderPersons(dbpediaInfo.producer)}
+                      </p>
+                    )}
+                    {dbpediaInfo.writer && (
+                      <p>
+                        <strong>Writer:</strong>{" "}
+                        {renderPersons(dbpediaInfo.writer)}
+                      </p>
+                    )}
+                    {dbpediaInfo.genre && (
+                      <p>
+                        <strong>Genre:</strong>{" "}
+                        {renderPersons(dbpediaInfo.genre)}
+                      </p>
+                    )}
+                    {dbpediaInfo.releaseDate && (
+                      <p>
+                        <strong>Release Date:</strong> {dbpediaInfo.releaseDate}
+                      </p>
+                    )}
+                    {dbpediaInfo.language && (
+                      <p>
+                        <strong>Language:</strong> {dbpediaInfo.language}
+                      </p>
+                    )}
+                    {dbpediaInfo.country && (
+                      <p>
+                        <strong>Country:</strong> {dbpediaInfo.country}
+                      </p>
+                    )}
+                    {dbpediaInfo.abstract && (
+                      <p>
+                        <strong>Abstract:</strong> {dbpediaInfo.abstract}
+                      </p>
+                    )}
+                    {!dbpediaInfo.abstract &&
+                      !dbpediaInfo.director &&
+                      !dbpediaInfo.starring &&
+                      !dbpediaInfo.releaseDate &&
+                      !dbpediaInfo.producer &&
+                      !dbpediaInfo.writer &&
+                      !dbpediaInfo.genre && (
+                        <p>
+                          🔍 No additional information found on DBpedia for this
+                          title.
+                        </p>
+                      )}
                   </>
                 ) : (
                   <p>
