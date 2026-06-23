@@ -8,7 +8,6 @@ import { Container } from "react-bootstrap";
 const SearchResults = () => {
   const queryParams = new URLSearchParams(useLocation().search);
   const searchQuery = queryParams.get("query") || "";
-
   const searchEndpoint = getSearchEndpoint(searchQuery);
   const data = useFetch(searchEndpoint);
 
@@ -16,10 +15,12 @@ const SearchResults = () => {
     <Layout>
       <Container>
         <h1 className="text-center my-4">Search results for "{searchQuery}"</h1>
-        {data && data.results ? (
+        {!data ? (
+          <p className="text-center">Loading...</p>
+        ) : data.results?.length > 0 ? (
           <MoviesCardList data={data.results} />
         ) : (
-          <p>Loading...</p>
+          <p className="text-center">No results found for "{searchQuery}".</p>
         )}
       </Container>
     </Layout>

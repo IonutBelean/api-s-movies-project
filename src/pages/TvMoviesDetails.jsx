@@ -5,63 +5,38 @@ import { useFetch } from "../utils/hooks/useFetch";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import TvMoviesDetailsCSS from "./TvMoviesDetails.module.css";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useDBpedia } from "../utils/hooks/useDBpedia";
 
 const TvMoviesDetails = () => {
   const { movieId } = useParams();
-  const tvMoviesDetailsEndpoint = getTvMoviesDetailsEndpoint(movieId);
-  const data = useFetch(tvMoviesDetailsEndpoint);
-  const { original_name, backdrop_path, overview, status, tagline } =
-    data || {};
+  const data = useFetch(getTvMoviesDetailsEndpoint(movieId));
+  const {
+    original_name,
+    backdrop_path,
+    overview,
+    status,
+    tagline,
+    first_air_date,
+  } = data || {};
 
-  const [dbpediaInfo, setDbpediaInfo] = useState(null);
-  const [loadingDbpedia, setLoadingDbpedia] = useState(false);
-
-  useEffect(() => {
-    const fetchDbpediaInfo = async () => {
-      if (!original_name) return;
-      setLoadingDbpedia(true);
-      try {
-        const res = await axios.post("/.netlify/functions/dbpediaInfo", {
-          title: original_name,
-        });
-        const info = res.data;
-
-        // Curățăm DBpedia de link-uri uriase / ciudate
-        const cleanInfo = { ...info };
-        ["director", "starring", "producer", "writer", "genre"].forEach(
-          (key) => {
-            if (cleanInfo[key]?.uri) {
-              cleanInfo[key] = { name: cleanInfo[key].name };
-            }
-          }
-        );
-        if (cleanInfo.language?.uri)
-          cleanInfo.language = cleanInfo.language.name;
-        if (cleanInfo.country?.uri) cleanInfo.country = cleanInfo.country.name;
-
-        setDbpediaInfo(cleanInfo);
-      } catch (err) {
-        console.error("DBpedia Error:", err);
-        setDbpediaInfo(null);
-      } finally {
-        setLoadingDbpedia(false);
-      }
-    };
-
-    fetchDbpediaInfo();
-  }, [original_name]);
+  const { dbpediaData, loading: loadingDbpedia } = useDBpedia(
+    original_name,
+    first_air_date?.split("-")[0] || null,
+  );
 
   const renderPersons = (persons) => {
-    if (!persons) return "N/A";
-    const arr = Array.isArray(persons) ? persons : [persons];
-    return arr.map((p, i) => (
+    if (!persons || persons.length === 0) return null;
+    return persons.map((p, i) => (
       <span key={i}>
         {p.name}
-        {i < arr.length - 1 ? ", " : ""}
+        {i < persons.length - 1 ? ", " : ""}
       </span>
     ));
+  };
+
+  const renderStrings = (arr) => {
+    if (!arr || arr.length === 0) return null;
+    return arr.join(", ");
   };
 
   const motionView = { once: false, amount: 0.5 };
@@ -156,71 +131,87 @@ const TvMoviesDetails = () => {
                 }}
               >
                 <h3>Extra Information from DBpedia</h3>
-
                 {loadingDbpedia ? (
                   <div className="text-center my-3">
                     <Spinner animation="border" />
                     <p className="mt-2">Loading additional information...</p>
                   </div>
-                ) : dbpediaInfo ? (
+                ) : dbpediaData ? (
                   <>
-                    {dbpediaInfo.director && (
+                    {dbpediaData.director?.length > 0 && (
                       <p>
                         <strong>Director:</strong>{" "}
-                        {renderPersons(dbpediaInfo.director)}
+                        {renderPersons(dbpediaData.director)}
                       </p>
                     )}
-                    {dbpediaInfo.starring && (
+                    {dbpediaData.starring?.length > 0 && (
                       <p>
                         <strong>Main Actor:</strong>{" "}
-                        {renderPersons(dbpediaInfo.starring)}
+                        {renderPersons(dbpediaData.starring)}
                       </p>
                     )}
-                    {dbpediaInfo.producer && (
+                    {dbpediaData.producer?.length > 0 && (
                       <p>
                         <strong>Producer:</strong>{" "}
-                        {renderPersons(dbpediaInfo.producer)}
+                        {renderPersons(dbpediaData.producer)}
                       </p>
                     )}
-                    {dbpediaInfo.writer && (
+                    {dbpediaData.writer?.length > 0 && (
                       <p>
                         <strong>Writer:</strong>{" "}
-                        {renderPersons(dbpediaInfo.writer)}
+                        {renderPersons(dbpediaData.writer)}
                       </p>
                     )}
-                    {dbpediaInfo.genre && (
+                    {dbpediaData.genre?.length > 0 && (
                       <p>
                         <strong>Genre:</strong>{" "}
-                        {renderPersons(dbpediaInfo.genre)}
+                        {renderPersons(dbpediaData.genre)}
                       </p>
                     )}
-                    {dbpediaInfo.releaseDate && (
+                    {dbpediaData.releaseDate && (
                       <p>
-                        <strong>Release Date:</strong> {dbpediaInfo.releaseDate}
+                        <strong>Release Date:</strong> {dbpediaData.releaseDate}
                       </p>
                     )}
-                    {dbpediaInfo.language && (
+                    {dbpediaData.runtime && (
                       <p>
-                        <strong>Language:</strong> {dbpediaInfo.language}
+                        <strong>Runtime:</strong> {dbpediaData.runtime}
                       </p>
                     )}
-                    {dbpediaInfo.country && (
+                    {dbpediaData.budget && (
                       <p>
-                        <strong>Country:</strong> {dbpediaInfo.country}
+                        <strong>Budget:</strong> {dbpediaData.budget}
                       </p>
                     )}
-                    {dbpediaInfo.abstract && (
+                    {dbpediaData.gross && (
                       <p>
-                        <strong>Abstract:</strong> {dbpediaInfo.abstract}
+                        <strong>Box Office:</strong> {dbpediaData.gross}
                       </p>
                     )}
-                    {!dbpediaInfo.abstract &&
-                      !dbpediaInfo.director &&
-                      !dbpediaInfo.starring &&
-                      !dbpediaInfo.releaseDate &&
-                      !dbpediaInfo.producer &&
-                      !dbpediaInfo.writer &&
-                      !dbpediaInfo.genre && (
+                    {dbpediaData.language?.length > 0 && (
+                      <p>
+                        <strong>Language:</strong>{" "}
+                        {renderStrings(dbpediaData.language)}
+                      </p>
+                    )}
+                    {dbpediaData.country?.length > 0 && (
+                      <p>
+                        <strong>Country:</strong>{" "}
+                        {renderStrings(dbpediaData.country)}
+                      </p>
+                    )}
+                    {dbpediaData.abstract && (
+                      <p>
+                        <strong>Abstract:</strong> {dbpediaData.abstract}
+                      </p>
+                    )}
+                    {!dbpediaData.abstract &&
+                      !dbpediaData.director?.length &&
+                      !dbpediaData.starring?.length &&
+                      !dbpediaData.releaseDate &&
+                      !dbpediaData.producer?.length &&
+                      !dbpediaData.writer?.length &&
+                      !dbpediaData.genre?.length && (
                         <p>
                           🔍 No additional information found on DBpedia for this
                           title.

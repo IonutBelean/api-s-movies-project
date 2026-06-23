@@ -4,74 +4,33 @@ import Layout from "../components/Layout";
 import { useFetch } from "../utils/hooks/useFetch";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import MoviesDetailsCSS from "./MoviesDetalis.module.css";
+import { useDBpedia } from "../utils/hooks/useDBpedia";
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
   const data = useFetch(getMoviesDetailsEndpoint(movieId));
-  const { title, backdrop_path, overview, runtime, tagline } = data || {};
+  const { title, backdrop_path, overview, runtime, tagline, release_date } =
+    data || {};
 
-  const [dbpediaInfo, setDbpediaInfo] = useState(null);
-  const [loadingDbpedia, setLoadingDbpedia] = useState(false);
-
-  useEffect(() => {
-    const fetchDbpediaInfo = async () => {
-      if (!title) return;
-      setLoadingDbpedia(true);
-      try {
-        const res = await axios.post("/.netlify/functions/dbpediaInfo", {
-          title,
-        });
-        const info = res.data;
-
-        // Curățăm DBpedia de link-uri ciudate
-        const cleanInfo = { ...info };
-        ["director", "starring", "producer", "writer", "genre"].forEach(
-          (key) => {
-            if (cleanInfo[key]?.uri) {
-              cleanInfo[key] = { name: cleanInfo[key].name };
-            }
-          }
-        );
-        if (cleanInfo.language?.uri)
-          cleanInfo.language = cleanInfo.language.name;
-        if (cleanInfo.country?.uri) cleanInfo.country = cleanInfo.country.name;
-
-        setDbpediaInfo(cleanInfo);
-      } catch (err) {
-        console.error("DBpedia Error:", err);
-        setDbpediaInfo(null);
-      } finally {
-        setLoadingDbpedia(false);
-      }
-    };
-
-    fetchDbpediaInfo();
-  }, [title]);
+  const { dbpediaData, loading: loadingDbpedia } = useDBpedia(
+    title,
+    release_date?.split("-")[0] || null,
+  );
 
   const renderPersons = (persons) => {
-    if (!persons) return "Unknown";
-    const arr = Array.isArray(persons) ? persons : [persons];
-    return arr.map((p, i) => (
+    if (!persons || persons.length === 0) return null;
+    return persons.map((p, i) => (
       <span key={i}>
         {p.name}
-        {i < arr.length - 1 ? ", " : ""}
+        {i < persons.length - 1 ? ", " : ""}
       </span>
     ));
   };
 
-  const formatRuntime = (runtime) => {
-    if (!runtime) return "N/A";
-    const num = parseFloat(runtime);
-    return num > 500 ? Math.round(num / 60) + " minutes" : num + " minutes";
-  };
-
-  const formatMoney = (value) => {
-    if (!value) return "N/A";
-    const num = parseFloat(value);
-    return "$" + num.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  const renderStrings = (arr) => {
+    if (!arr || arr.length === 0) return null;
+    return arr.join(", ");
   };
 
   const motionView = { once: false, amount: 0.5 };
@@ -94,57 +53,66 @@ const MoviesDetails = () => {
               {title}
             </motion.h1>
 
-            <motion.p
-              className={MoviesDetailsCSS.tagline}
-              initial={{ x: -100, opacity: 0 }}
-              whileInView={{
-                x: 0,
-                opacity: 1,
-                transition: { type: "spring", delay: 0.6 },
-              }}
-              viewport={motionView}
-            >
-              {tagline}
-            </motion.p>
+            {tagline && (
+              <motion.p
+                className={MoviesDetailsCSS.tagline}
+                initial={{ x: -100, opacity: 0 }}
+                whileInView={{
+                  x: 0,
+                  opacity: 1,
+                  transition: { type: "spring", delay: 0.6 },
+                }}
+                viewport={motionView}
+              >
+                {tagline}
+              </motion.p>
+            )}
 
-            <motion.img
-              src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-              alt={title}
-              className={MoviesDetailsCSS.image}
-              initial={{ scale: 0.5, opacity: 0 }}
-              whileInView={{
-                scale: 1,
-                opacity: 1,
-                transition: { type: "spring", stiffness: 120 },
-              }}
-              viewport={motionView}
-            />
+            {backdrop_path && (
+              <motion.img
+                src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+                alt={title}
+                className={MoviesDetailsCSS.image}
+                onError={(e) => (e.target.src = "/nophoto.png")}
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{
+                  scale: 1,
+                  opacity: 1,
+                  transition: { type: "spring", stiffness: 120 },
+                }}
+                viewport={motionView}
+              />
+            )}
 
-            <motion.p
-              className={MoviesDetailsCSS.duration}
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{
-                y: 0,
-                opacity: 1,
-                transition: { type: "spring", delay: 0.4 },
-              }}
-              viewport={{ once: false, amount: 0.2 }}
-            >
-              Duration: {runtime || "N/A"} minutes.
-            </motion.p>
+            {runtime && (
+              <motion.p
+                className={MoviesDetailsCSS.duration}
+                initial={{ y: 100, opacity: 0 }}
+                whileInView={{
+                  y: 0,
+                  opacity: 1,
+                  transition: { type: "spring", delay: 0.4 },
+                }}
+                viewport={{ once: false, amount: 0.2 }}
+              >
+                Duration: {runtime} minutes.
+              </motion.p>
+            )}
 
-            <motion.p
-              className={MoviesDetailsCSS.overview}
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{
-                y: 0,
-                opacity: 1,
-                transition: { type: "spring", delay: 0.5 },
-              }}
-              viewport={{ once: false, amount: 0.2 }}
-            >
-              {overview}
-            </motion.p>
+            {overview && (
+              <motion.p
+                className={MoviesDetailsCSS.overview}
+                initial={{ y: 100, opacity: 0 }}
+                whileInView={{
+                  y: 0,
+                  opacity: 1,
+                  transition: { type: "spring", delay: 0.5 },
+                }}
+                viewport={{ once: false, amount: 0.2 }}
+              >
+                {overview}
+              </motion.p>
+            )}
 
             {title && (
               <motion.div
@@ -163,82 +131,82 @@ const MoviesDetails = () => {
                     <Spinner animation="border" role="status" />
                     <p className="mt-2">Loading additional information...</p>
                   </div>
-                ) : dbpediaInfo ? (
+                ) : dbpediaData ? (
                   <>
-                    {dbpediaInfo.director && (
+                    {dbpediaData.director?.length > 0 && (
                       <p>
                         <strong>Director:</strong>{" "}
-                        {renderPersons(dbpediaInfo.director)}
+                        {renderPersons(dbpediaData.director)}
                       </p>
                     )}
-                    {dbpediaInfo.starring && (
+                    {dbpediaData.starring?.length > 0 && (
                       <p>
                         <strong>Main Actor:</strong>{" "}
-                        {renderPersons(dbpediaInfo.starring)}
+                        {renderPersons(dbpediaData.starring)}
                       </p>
                     )}
-                    {dbpediaInfo.producer && (
+                    {dbpediaData.producer?.length > 0 && (
                       <p>
                         <strong>Producer:</strong>{" "}
-                        {renderPersons(dbpediaInfo.producer)}
+                        {renderPersons(dbpediaData.producer)}
                       </p>
                     )}
-                    {dbpediaInfo.writer && (
+                    {dbpediaData.writer?.length > 0 && (
                       <p>
                         <strong>Writer:</strong>{" "}
-                        {renderPersons(dbpediaInfo.writer)}
+                        {renderPersons(dbpediaData.writer)}
                       </p>
                     )}
-                    {dbpediaInfo.genre && (
+                    {dbpediaData.genre?.length > 0 && (
                       <p>
                         <strong>Genre:</strong>{" "}
-                        {renderPersons(dbpediaInfo.genre)}
+                        {renderPersons(dbpediaData.genre)}
                       </p>
                     )}
-                    {dbpediaInfo.releaseDate && (
+                    {dbpediaData.releaseDate && (
                       <p>
-                        <strong>Release Date:</strong> {dbpediaInfo.releaseDate}
+                        <strong>Release Date:</strong> {dbpediaData.releaseDate}
                       </p>
                     )}
-                    {dbpediaInfo.runtime && (
+                    {dbpediaData.runtime && (
                       <p>
-                        <strong>Runtime:</strong>{" "}
-                        {formatRuntime(dbpediaInfo.runtime)}
+                        <strong>Runtime:</strong> {dbpediaData.runtime}
                       </p>
                     )}
-                    {dbpediaInfo.budget && (
+                    {dbpediaData.budget && (
                       <p>
-                        <strong>Budget:</strong>{" "}
-                        {formatMoney(dbpediaInfo.budget)}
+                        <strong>Budget:</strong> {dbpediaData.budget}
                       </p>
                     )}
-                    {dbpediaInfo.gross && (
+                    {dbpediaData.gross && (
                       <p>
-                        <strong>Box Office:</strong>{" "}
-                        {formatMoney(dbpediaInfo.gross)}
+                        <strong>Box Office:</strong> {dbpediaData.gross}
                       </p>
                     )}
-                    {dbpediaInfo.language && (
+                    {dbpediaData.language?.length > 0 && (
                       <p>
-                        <strong>Language:</strong> {dbpediaInfo.language}
+                        <strong>Language:</strong>{" "}
+                        {renderStrings(dbpediaData.language)}
                       </p>
                     )}
-                    {dbpediaInfo.country && (
+                    {dbpediaData.country?.length > 0 && (
                       <p>
-                        <strong>Country:</strong> {dbpediaInfo.country}
+                        <strong>Country:</strong>{" "}
+                        {renderStrings(dbpediaData.country)}
                       </p>
                     )}
-                    {dbpediaInfo.abstract && (
+                    {dbpediaData.abstract && (
                       <p>
-                        <strong>Abstract:</strong> {dbpediaInfo.abstract}
+                        <strong>Abstract:</strong> {dbpediaData.abstract}
                       </p>
                     )}
-                    {!dbpediaInfo.abstract &&
-                      !dbpediaInfo.director &&
-                      !dbpediaInfo.starring &&
-                      !dbpediaInfo.releaseDate &&
-                      !dbpediaInfo.budget &&
-                      !dbpediaInfo.gross && (
+                    {!dbpediaData.abstract &&
+                      !dbpediaData.director?.length &&
+                      !dbpediaData.starring?.length &&
+                      !dbpediaData.releaseDate &&
+                      !dbpediaData.producer?.length &&
+                      !dbpediaData.writer?.length &&
+                      !dbpediaData.genre?.length && (
                         <p>
                           🔍 No additional information found on DBpedia for this
                           title.
